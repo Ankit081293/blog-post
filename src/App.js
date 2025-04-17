@@ -1,24 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import { CountContextProvider } from './contexts/count-context';
+import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
+import About from './components/About';
+import Alert from './components/Alert';
+import { Provider } from 'react-redux';
+import { store } from './reduxStore/store';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Provider store={store}>
+    <CountContextProvider>    
+    <BrowserRouter>
+    <Navbar/>
+    <Alert/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+
+
+    {/* <Router>
+        <Navbar />
+        <Routes>
+          <Route exact path="/">
+          <Home />
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+        </Routes>
+      </Router> */}
+
+
+
+
+
+    </CountContextProvider>
+    </Provider>
+    </>
   );
 }
 
